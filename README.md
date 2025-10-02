@@ -35,7 +35,7 @@ python -m venv .venv
 source .venv/bin/activate  # macOS/Linux
 .venv\Scripts\activate      # Windows
 
-### 3. Install Dependencies
+Install Dependencies
 Please ensure you have a requirements.txt file or install the core libraries directly:
 
 Bash
@@ -43,7 +43,7 @@ Bash
 # Core Dependencies
 pip install streamlit pandas numpy matplotlib plotly
 
-### 4. Run Application
+Run Application
 Launch the Streamlit application, which will automatically open in your browser.
 
 Bash

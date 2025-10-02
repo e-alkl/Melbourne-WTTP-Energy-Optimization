@@ -25,7 +25,8 @@ This $\text{Streamlit}$ dashboard provides an intuitive interface for monitoring
 ```bash
 git clone [https://github.com/e-alkl/Melbourne-WTTP-Energy-Optimization.git](https://github.com/e-alkl/Melbourne-WTTP-Energy-Optimization.git)
 cd Melbourne-WTTP-Energy-Optimization
-2. Create Virtual Environment
+
+### 2. Create Virtual Environment
 It is highly recommended to use a virtual environment to manage dependencies.
 
 Bash
@@ -34,14 +35,16 @@ Bash
 python -m venv .venv
 source .venv/bin/activate  # macOS/Linux
 .venv\Scripts\activate      # Windows
-3. Install Dependencies
+
+### 3. Install Dependencies
 Please ensure you have a requirements.txt file or install the core libraries directly:
 
 Bash
 
 # Core Dependencies
 pip install streamlit pandas numpy matplotlib plotly
-4. Run Application
+
+### 4. Run Application
 Launch the Streamlit application, which will automatically open in your browser.
 
 Bash

@@ -41,7 +41,7 @@ SHAP analysis identified the top three features driving energy consumption under
 
 ### Technology Stack
 
-* **Python 3.x**
+* **Python 3.11.7**
 * **Machine Learning:** `xgboost`, `scikit-learn`
 * **Data Processing:** `pandas`, `numpy`
 * **Explainability (XAI):** `shap`

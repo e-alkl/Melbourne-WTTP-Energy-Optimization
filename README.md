@@ -1,68 +1,70 @@
-# Melbourne Eastern Wastewater Treatment Plant (ETP) Energy Optimization: ML-Based Decision Support System
+# Melbourne ETP Smart Energy Optimization Dashboard
 
+[//]: # (You can optionally link a screenshot here)
 ## Project Overview
 
-This project utilizes historical operational data and Machine Learning (XGBoost Regressor) to establish an **Energy Baseline Prediction Model under Water Quality Compliance Constraints**. The goal is to identify the key drivers of energy consumption at the Melbourne Eastern WWTP (ETP) through Explainable AI (XAI) and provide data-driven operational recommendations to reduce unnecessary energy waste.
+This project aims to provide **predictive** and **prescriptive** operational decision support for Wastewater Treatment Plants (ETP/WWTP) using advanced machine learning models. The core objectives are:
 
-The core value of this project is:
-1.  **Constrained Training:** The model is trained exclusively on historical data where **water quality compliance** (low BOD/COD loading) was met, ensuring optimization suggestions do not compromise environmental standards.
-2.  **Explainability:** Using SHAP (SHapley Additive exPlanations) to reveal the **true physical factors** influencing energy consumption, providing transparent decision support for operators.
+1.  **Minimize Energy Consumption Cost**: By predicting and optimizing key controllable parameters, such as the Aeration **DO Setpoint** and **Recycle Ratio**.
+2.  **Ensure Water Quality Compliance**: Strictly adhere to water quality discharge standards (simulated BOD/COD rules) within all optimization decisions.
 
-## Core Results and Insights
+This $\text{Streamlit}$ dashboard provides an intuitive interface for monitoring load trends, analyzing model explainability ($\text{SHAP}$ simulation), and running real-time cost optimization searches.
 
-The model successfully achieved a Mean Absolute Error (MAE) of **11.87%** in predicting energy consumption under the constrained (low-load/compliant) operating conditions.
+## Core Features
 
-### 1. Model Performance Summary
+* **Dual Input Modes**: Supports **Live Feed** mode (simulating real-time data) and **Manual Simulation** mode (What-If scenario analysis).
+* **Cost Optimization Engine**: Searches for the lowest energy-consuming, compliant control parameter set based on the current **TOU** (Time-of-Use) electricity rate.
+* **Prediction & Cost Analysis**: Provides real-time forecasts of energy consumption and operational costs under current operating conditions.
+* **Model Explainability**: Uses $\text{SHAP}$ (simulated) charts to explain which features drive the energy consumption prediction.
+* **Sensitivity Analysis**: Simulates the energy consumption trend as a key input variable is adjusted.
 
-| Metric | Value | Comment |
-| :--- | :--- | :--- |
-| **MAE (Mean Absolute Error)** | **32,143.43 kWh** | The average prediction error of the model. If actual operating energy consumption exceeds this margin, it indicates potential operational inefficiency. |
-| **MAE as % of Avg. Energy** | $11.87\%$ | The model demonstrates reasonable predictive accuracy. |
-| **Average Energy Baseline** | $270,716.17 \text{ kWh}$ | The typical daily energy consumption baseline for the ETP under low-load conditions. |
+## Setup and Installation
 
-### 2. Key Energy Drivers Revealed by SHAP
+### 1. Clone Repository
 
-SHAP analysis identified the top three features driving energy consumption under low-load conditions. This informs a layered control strategy:
+```bash
+git clone [https://github.com/e-alkl/Melbourne-WTTP-Energy-Optimization.git](https://github.com/e-alkl/Melbourne-WTTP-Energy-Optimization.git)
+cd Melbourne-WTTP-Energy-Optimization
+2. Create Virtual Environment
+It is highly recommended to use a virtual environment to manage dependencies.
 
-| Rank | Feature ($\mathbf{X}$) | Physical Mechanism & Operational Advice |
-| :--- | :--- | :--- |
-| **1** | **Average Temperature** | **Highest influence.** Directly drives microbial activity and reaction rates. **Recommendation:** Implement **seasonal** or **temperature-banded** aeration setpoint adjustments, moving away from fixed year-round setpoints. |
-| **2** | **Ammonia** | The primary demand indicator for the nitrification process. **Recommendation:** Shift from traditional DO control to **real-time Ammonia predictive control** to precisely match oxygen supply to nitrification needs, minimizing over-aeration. |
-| **3** | **Average Inflow** | Affects hydraulic loading and retention time. **Recommendation:** Utilize storage or equalization basins to **buffer peak flows**. Stabilizing flow minimizes variability in concentration and reduces the energy required for both pumping and aeration control. |
+Bash
 
-## Project Structure and Technology Stack
+# Create and activate the virtual environment (use Python 3.9+)
+python -m venv .venv
+source .venv/bin/activate  # macOS/Linux
+.venv\Scripts\activate      # Windows
+3. Install Dependencies
+Please ensure you have a requirements.txt file or install the core libraries directly:
 
-### Project Files
+Bash
 
-* `melbourne_etp_data.csv.csv`: Raw ETP dataset (2014-2019).
-* **`melbourne_etp_data_prep.py`**: Data cleaning, handling missing values, and creating the **`Quality_Pass`** constraint label.
-* **`train_xgboost_regressor.py`**: Loads optimized data, trains the XGBoost Regressor, calculates MAE/RMSE, and generates SHAP insights and model files (`.joblib`).
-* **`etp_dashboard.py`**: Creates the **interactive Web simulator** based on Streamlit (launch with `streamlit run etp_dashboard.py`).
+# Core Dependencies
+pip install streamlit pandas numpy matplotlib plotly
+4. Run Application
+Launch the Streamlit application, which will automatically open in your browser.
 
-### Technology Stack
+Bash
 
-* **Python 3.11.7**
-* **Machine Learning:** `xgboost`, `scikit-learn`
-* **Data Processing:** `pandas`, `numpy`
-* **Explainability (XAI):** `shap`
-* **Web App/Deployment:** `streamlit`, `joblib` (Model Persistence)
+streamlit run app.py
+Project Structure
+.
+├── .streamlit/
+│   └── config.toml         # Streamlit Theme Configuration
+├── app.py                  # Main Application Entry and Page Routing (Landing Page)
+├── dashboard_page.py       # ETP Energy Optimization Dashboard Logic, UI, and Mock Functions
+├── requirements.txt        # Project dependency list
+├── README.md               # Project documentation (this file)
+└── etp_wastewater.png      # Image asset (used on the Landing Page)
+Future Work and Enhancements
+This project currently represents a Feature Complete MVP (Minimum Viable Product). Future directions for optimization include:
 
-## How to Launch the Interactive Simulator
+Integrate Real ML Model: Replace mock prediction functions with a real, trained machine learning model.
 
-You can easily run the model interface using Streamlit:
+SHAP Local Explanations: Add a Waterfall Plot to the forecast card to explain a single prediction.
 
-1.  **Environment Setup:**
-    ```bash
-    pip install pandas numpy scikit-learn xgboost shap joblib streamlit
-    ```
-2.  **Data & Model Preparation:** Run the prep and training scripts sequentially to generate the optimized training data and the model file.
-    ```bash
-    python melbourne_etp_data_prep.py
-    python train_xgboost_regressor.py
-    ```
-3.  **Launch Dashboard:**
-    ```bash
-    streamlit run etp_dashboard.py
-    ```
+Real-Time Data Connection: Connect to an API or database for authentic Live Feed data updates.
 
-Your browser will open automatically, allowing you to adjust **Average Temperature**, **Ammonia**, and **Average Inflow** sliders to explore their impact on the ETP's **minimum energy consumption**.
+Cost Visualization: Enhance the optimization result display with a clearer Plotly cost comparison chart.
+
+---

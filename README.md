@@ -20,13 +20,13 @@ This $\text{Streamlit}$ dashboard provides an intuitive interface for monitoring
 
 ## Setup and Installation
 
-### 1. Clone Repository
+1. Clone Repository
 
 ```bash
 git clone [https://github.com/e-alkl/Melbourne-WTTP-Energy-Optimization.git](https://github.com/e-alkl/Melbourne-WTTP-Energy-Optimization.git)
 cd Melbourne-WTTP-Energy-Optimization
 
-### 2. Create Virtual Environment
+2. Create Virtual Environment
 It is highly recommended to use a virtual environment to manage dependencies.
 
 Bash

@@ -1,0 +1,17 @@
+# 數據文件和模型
+*.csv.csv
+*.csv
+*.joblib
+*.pkl
+etp_energy_model.joblib
+etp_features.joblib
+melbourne_etp_optimized_training_data.csv
+
+# 環境和日誌
+venv/
+__pycache__/
+.ipynb_checkpoints
+
+# Streamlit/Pyplot 檔案
+.streamlit/
+shap_summary_plot.png
